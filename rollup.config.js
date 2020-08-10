@@ -8,20 +8,24 @@ import { terser } from 'rollup-plugin-terser'
 
 const production = !process.env.ROLLUP_WATCH
 
-function serve () {
+function serve() {
   let server
 
-  function toExit () {
+  function toExit() {
     if (server) server.kill(0)
   }
 
   return {
-    writeBundle () {
+    writeBundle() {
       if (server) return
-      server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
-        stdio: ['ignore', 'inherit', 'inherit'],
-        shell: true
-      })
+      server = require('child_process').spawn(
+        'npm',
+        ['run', 'start', '--', '--dev'],
+        {
+          stdio: ['ignore', 'inherit', 'inherit'],
+          shell: true
+        }
+      )
 
       process.on('SIGTERM', toExit)
       process.on('exit', toExit)
@@ -43,7 +47,7 @@ export default {
       dev: !production,
       // we'll extract any component CSS out into
       // a separate file - better for performance
-      css: css => {
+      css: (css) => {
         css.write('public/build/bundle.css')
       },
       preprocess: sveltePreprocess({

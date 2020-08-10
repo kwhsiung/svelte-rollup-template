@@ -4,16 +4,12 @@ module.exports = {
     es2020: true,
     node: true
   },
-  extends: [
-    'standard'
-  ],
+  extends: ['standard', 'prettier', 'plugin:prettier/recommended'],
   parserOptions: {
     ecmaVersion: 11,
     sourceType: 'module'
   },
-  plugins: [
-    'svelte3'
-  ],
+  plugins: ['svelte3', 'prettier'],
   overrides: [
     {
       files: ['**/*.svelte'],
